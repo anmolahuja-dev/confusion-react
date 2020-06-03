@@ -1,3 +1,5 @@
+//Reducer describes how Actions transforms the state (modifies store based on Action we give)
+
 import { DISHES } from '../shared/dishes';
 import { LEADERS } from '../shared/leaders';
 import { COMMENTS } from '../shared/comments';
