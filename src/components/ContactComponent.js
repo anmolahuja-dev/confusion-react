@@ -88,6 +88,7 @@ const validEmail = (val) => /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,9}$/i.test(val
                                             maxLengh: 'Must be 15 characters or less'
                                         }} 
                                         />
+                                        
                                 </Col>
                             </Row>
                             <Row className="form-group">
