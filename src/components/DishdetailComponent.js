@@ -25,7 +25,7 @@ const minLengh = (len) => (val) => val && (val.length >= len);
     
         }
 
-    function RenderComments ({comments}){
+    function RenderComments ({comments,addComment,dishId}){
         var commentList = comments.map((comment)=>{
             return(
                 <div>
@@ -46,7 +46,7 @@ const minLengh = (len) => (val) => val && (val.length >= len);
                 <ul className="list-unstyled">
                     {commentList}
                 </ul>   
-                <CommentForm comments= {comments}/>    
+                <CommentForm dishId={dishId} addComment={addComment} />    
             </div>
         );
     }
@@ -64,8 +64,8 @@ const minLengh = (len) => (val) => val && (val.length >= len);
         }
         
         handleSubmit (values){
-            alert("Current State is:" + JSON.stringify(values));
-            console.log("Current State is:" + JSON.stringify(values));
+            this.toggleModal();
+            this.props.addComment(this.props.dishId, values.rating, values.author,values.comment)
         }
 
         toggleModal(){
@@ -106,10 +106,10 @@ const minLengh = (len) => (val) => val && (val.length >= len);
                                 </Row>
 
                                 <Row className="form-group">
-                                    <Label htmlFor="firstname" md={12}>Your name</Label>
+                                    <Label htmlFor="author" md={12}>Your name</Label>
                                     <Col md={12}>
-                                        <Control.text model=".firstname"
-                                        id="firstname" name="firstname"
+                                        <Control.text model=".author"
+                                        id="author" name="author"
                                         placeholder= "Your Name"
                                         className="form-control"
                                         validators={{
@@ -117,7 +117,7 @@ const minLengh = (len) => (val) => val && (val.length >= len);
                                         }}
                                         />
                                         <Errors className="text-danger"
-                                        model=".firstname"
+                                        model=".author"
                                         show="touched"
                                         messages={{
                                             required: 'Required',
@@ -129,9 +129,9 @@ const minLengh = (len) => (val) => val && (val.length >= len);
                                 </Row>
 
                                 <Row className="form-group">
-                                    <Label htmlFor="message" md={12}>Your Feedback</Label>
+                                    <Label htmlFor="comment" md={12}>Your Feedback</Label>
                                     <Col md={12}>
-                                        <Control.textarea model=".message" id="message" name="message"
+                                        <Control.textarea model=".comment" id="comment" name="comment"
                                             rows="6"
                                             className="form-control" />
                                     </Col>
@@ -174,7 +174,9 @@ const minLengh = (len) => (val) => val && (val.length >= len);
                         <RenderDish dish={props.dish}/>
                     </div>
                     <div className="col-12 col-md-5 m-1">
-                        <RenderComments comments= {props.comments}/>
+                        <RenderComments comments= {props.comments}
+                        addComment={props.addComment}
+                        dishId={props.dish.id} />
                     </div>    
                 </div>
             </div>     
