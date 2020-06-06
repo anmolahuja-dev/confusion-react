@@ -4,16 +4,48 @@ import {baseUrl} from '../shared/baseUrl';
 
 
 //this will create an action object and return it () in arrow functions returns
-export const addComment = (dishId,rating, author, comment) => ({
+export const addComment = (comment) => ({
     type: ActionTypes.ADD_COMMENT, 
-    payload: {
+    payload: comment
+});
+//this object will be sent as action to comments.js as args to reducer functions
+
+export const postComment =(dishId,rating, author, comment) => (dispatch) =>{
+    const newComment = {
         dishId: dishId,
         rating: rating,
         author: author,
-        comment:comment
+        comment: comment
     }
-});
-//this object will be sent as action to comments.js as args to reducer functions
+    newComment.date = new Date().toISOString();
+
+    return fetch(baseUrl + 'comments',{
+        method:'POST',
+        body: JSON.stringify(newComment),
+        headers: {
+            'Content-Type': 'application/JSON'
+        },
+        credentials: 'same-origin'
+    })
+    .then(response=> {
+        if(response.ok){
+            return response;
+        }
+        else {
+            var error = new Error('Error ' + response.status + ': ' + response.statusText);
+            error.response = response;
+            throw error;
+        }
+    },
+        error => {
+            var errmess = new Error(error.message);
+            throw errmess;
+    })
+    .then(response => response.json())
+    .then(dishes => dispatch(addComment(dishes)))
+    .catch(error=> {console.log('Post Comments '+ error.message)});
+}
+
 
 //this is a thunk that return a function which call/dispatch several actions
 export const fetchDishes = () => (dispatch) => {

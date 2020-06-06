@@ -30,7 +30,6 @@ const minLengh = (len) => (val) => val && (val.length >= len);
         var commentList = comments.map((comment)=>{
             return(
                 <div>
-                    
                         <li key= {comment.id}>
                             {comment.comment}
                         </li>
@@ -191,7 +190,7 @@ const minLengh = (len) => (val) => val && (val.length >= len);
                     <div className="col-12 col-md-5 m-1">
                         <RenderDish dish={props.dish}/>
                     </div>
-                    <div className="col-12 col-md-5 m-1">
+                    <div className="col-12 col-md-5 m-1  scrollbar">
                         <RenderComments comments= {props.comments}
                         addComment={props.addComment}
                         dishId={props.dish.id} />

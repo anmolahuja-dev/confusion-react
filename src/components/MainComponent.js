@@ -8,7 +8,7 @@ import Footer from './FooterComponent';
 import About from './AboutComponent';
 import { Switch, Route, Redirect, withRouter } from "react-router-dom";
 import { connect } from 'react-redux';
-import {addComment , fetchDishes, fetchComments, fetchPromos } from '../redux/ActionCreators';
+import {postComment , fetchDishes, fetchComments, fetchPromos } from '../redux/ActionCreators';
 import {actions} from 'react-redux-form';
 
 const mapStateToProps = state => {
@@ -25,7 +25,7 @@ const mapStateToProps = state => {
 //states are updated via dispatch(action obj)
 //now we can use addComment anywhere in our component
 const mapDispatchToProps= (dispatch) => ({
-  addComment : (dishId , rating, author,comment) => dispatch(addComment(dishId , rating, author,comment)),
+  addComment : (dishId , rating, author,comment) => dispatch(postComment(dishId , rating, author,comment)),
   fetchDishes : () => {dispatch(fetchDishes())},
   fetchComments : () => {dispatch(fetchComments())},
   fetchPromos : () => {dispatch(fetchPromos())},
