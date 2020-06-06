@@ -5,6 +5,7 @@ import {Link} from 'react-router-dom';
 import {Control, LocalForm, Errors} from 'react-redux-form';
 import {Loading} from './LoadingComponent';
 import {baseUrl} from '../shared/baseUrl';
+import {FadeTransform, Fade, Stagger} from 'react-animation-components';
 
 const required = (val) => val && val.length;
 const maxLengh = (len) => (val) => !(val) || (val.length <= len);
@@ -14,6 +15,10 @@ const minLengh = (len) => (val) => val && (val.length >= len);
     function RenderDish(props){
             return(
                 <div> 
+                    <FadeTransform in 
+                        transformProps={{
+                            exitTransform: 'scale(0.5) translateY(-50%)'
+                        }}>
                     <Card>
                         <CardImg width="100%" src= {baseUrl+props.dish.image} alt={props.dish.name} />
                         <CardBody>
@@ -21,6 +26,7 @@ const minLengh = (len) => (val) => val && (val.length >= len);
                         <CardText>{props.dish.description}</CardText>
                         </CardBody>
                     </Card>
+                    </FadeTransform>
                 </div>    
             );
     
@@ -44,7 +50,11 @@ const minLengh = (len) => (val) => val && (val.length >= len);
             <div>
                 <h4>Comments</h4>
                 <ul className="list-unstyled">
-                    {commentList}
+                    <Stagger in>
+                        <Fade in>
+                            {commentList}
+                        </Fade>    
+                    </Stagger>
                 </ul>   
                     
             </div>
