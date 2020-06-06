@@ -46,7 +46,7 @@ const minLengh = (len) => (val) => val && (val.length >= len);
                 <ul className="list-unstyled">
                     {commentList}
                 </ul>   
-                <CommentForm dishId={dishId} addComment={addComment} />    
+                    
             </div>
         );
     }
@@ -190,11 +190,15 @@ const minLengh = (len) => (val) => val && (val.length >= len);
                     <div className="col-12 col-md-5 m-1">
                         <RenderDish dish={props.dish}/>
                     </div>
-                    <div className="col-12 col-md-5 m-1  scrollbar">
-                        <RenderComments comments= {props.comments}
-                        addComment={props.addComment}
-                        dishId={props.dish.id} />
-                    </div>    
+                    <div className="col-12 col-md-5 m-1">
+                        <div className="scrollbar">
+                            <RenderComments comments= {props.comments}
+                            addComment={props.addComment}
+                            dishId={props.dish.id} />
+                        </div>    
+                        <CommentForm dishId={props.dish.id} addComment={props.addComment} />
+                    </div>
+
                 </div>
             </div>     
         );
